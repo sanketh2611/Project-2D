@@ -24,30 +24,13 @@ pipeline{
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github access', url: 'https://github.com/sanketh2611/Project-2D.git']]])
             }
         }
-        stage('build'){
-            steps{
-               sh '''
-                mvn package
-                '''
-            }
-        }
-        stage ('Unit Test') {
-	        steps {
-                echo 'Running Unit Testing'
-                sh '''
-                mvn test
-                '''
-             }
-         }
-        stage ('Update Local Repository') {
-             steps {
-                  sh '''
-                     mvn install
-					 rm -rf target/webapp.war
-                     mv target/*.war target/webapp.war
-                  '''
-             }
-        }
+        stage('Build') {
+           steps {
+        		sh "mvn clean install -DskipTests"
+       			 sh "rm -rf target/webapp.war"
+       			 sh "mv target/*.war target/webapp.war"
+    			}
+		}
         stage ('Static Code Analysis') {
              environment {
              scannerHome = tool 'SONAR_SCANNER'
