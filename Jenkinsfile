@@ -67,7 +67,7 @@ pipeline{
                 "files": [
                     {
                         "pattern": "target/*.war",
-                        "target": "local-snapshot-repo/simple-maven-project/1.0-SNAPSHOT/",
+                        "target": "local-backend-repo/simple-maven-project/1.0-SNAPSHOT/",
                         "props": "type=war;env=prod"
                     }
                 ]
